@@ -42,10 +42,8 @@ public class NoteController {
     }
 
     @GetMapping("/search")
-    public List<Note> searchByTitle(@RequestParam String title) {
-        return noteService.getAllNotes().stream()
-                .filter(n -> n.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .collect(Collectors.toList());
+    public Note searchByTitle(@RequestParam String title) {
+        return noteService.getNoteByTitle(title);
     }
 
     @PutMapping("/{id}")

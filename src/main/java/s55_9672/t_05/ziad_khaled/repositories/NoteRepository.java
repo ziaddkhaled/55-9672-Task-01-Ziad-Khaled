@@ -71,6 +71,12 @@ public class NoteRepository {
         return Optional.empty();
     }
 
+    public Optional<Note> findByTitle(String title) {
+        return notes.stream()
+                .filter(n -> n.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .findFirst();
+    }
+
     public boolean deleteById(String id) {
         boolean removed = notes.removeIf(n -> n.getId().equals(id));
         if (removed) {
