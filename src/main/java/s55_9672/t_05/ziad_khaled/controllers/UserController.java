@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import s55_9672.t_05.ziad_khaled.models.Note;
 import s55_9672.t_05.ziad_khaled.models.User;
+import s55_9672.t_05.ziad_khaled.services.NoteService;
 import s55_9672.t_05.ziad_khaled.services.UserService;
 
 @RestController
@@ -20,9 +22,11 @@ import s55_9672.t_05.ziad_khaled.services.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final NoteService noteService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, NoteService noteService) {
         this.userService = userService;
+        this.noteService = noteService;
     }
 
     @GetMapping
@@ -53,5 +57,10 @@ public class UserController {
     @GetMapping("/search")
     public User searchByUsername(@RequestParam String username) {
         return userService.getUserByUsername(username);
+    }
+
+    @GetMapping("/{id}/notes")
+    public List<Note> getUserNotes(@PathVariable String id) {
+        return noteService.getNotesByUserId(id);
     }
 }
